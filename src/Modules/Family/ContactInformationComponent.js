@@ -36,7 +36,7 @@ const ContactInformationComponent = forwardRef(
           </div>
         )}
         {phone === '' && (
-          <div className="form-check" data-testid="no phone error">
+          <div className="form-check">
             <input
               type="checkbox"
               className="form-check-input"
@@ -51,7 +51,7 @@ const ContactInformationComponent = forwardRef(
           </div>
         )}
         {showPhonePermissions && (
-          <div className="form-check">
+          <div className="form-check" data-testid="no phone error">
             <input
               type="checkbox"
               className="form-check-input"
