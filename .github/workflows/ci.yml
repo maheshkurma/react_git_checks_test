@@ -10,13 +10,20 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x]
+    working_directory: ~/repo
     steps:
     - uses: actions/checkout@v1
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Install Packages
-      run: npm install
-    - name: Run tests
-      run: npm test
+    - restore_cache:
+          keys:
+            - dependencies-{{ checksum "package.json" }}
+            - dependencies-
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: dependencies-{{ checksum "package.json" }}
+      - run: yarn test
